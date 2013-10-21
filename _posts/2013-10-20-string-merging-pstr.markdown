@@ -77,8 +77,8 @@ There were plenty of [red herrings](http://gcc.gnu.org/bugzilla/show_bug.cgi?id=
 but at some point it began to dawn on me that I was looking at the wrong suspect.
 The *compiler* doesn't do string merging. The *linker* does. The compiler just sets everything up. It made a lot of sense once I had realized that.
 
-So I needed some other language construct. A simpler one. One that allows me to state what I want as bluntly as possible. Hmm.
-Can you actually use assembler *directives* in inline assembler?
+So... if the compiler isn't helping because of all those semantic subtleties that are far beyond my simple needs, perhaps I should bypass it.
+Hmm. Can you actually use assembler *directives* in inline assembler?
 All documentation examples and tutorials I've seen just do opcodes and the occasional label.
 
 Let's just give it a try:
@@ -157,7 +157,7 @@ asm volatile
 {% endhighlight %}
 
 Compile, link, disassemble, check, upload, run. **It works!**
-And even in duplicate and triplicate, there's only ever one single instance of that `MOO MOO MOO` string to be found in the executable image.
+And even in duplicate and triplicate, there's only ever one single instance of that "MOO MOO MOO" string to be found in the executable image.
 
 *And* it works even with GCC 4.3.7, the one bundled with the Arduino IDE, with all the standard command line switches passed by the IDE.
 That's good news. I'm not a big fan of complicated solutions.
