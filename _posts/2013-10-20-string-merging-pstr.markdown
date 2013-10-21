@@ -1,9 +1,15 @@
 ---
 layout: post
 category: arduino
-title: De-duplication of PSTR() string literals
-tags: [Arduino, AVR]
+tags: [arduino, avr, c++]
+title: Your fla-- Your flash is now clean
 ---
+
+> **tl;dr:**
+> The `PSTR()` macro wastes flash memory because it doesn't support de-duplication of identical string literals (string merging).
+> At the very bottom of this page you'll find a drop-in replacement of the `PSTR()` macro that doesn't have this limitation.
+
+(The title is a reference to [this excellent movie](http://en.wikiquote.org/wiki/Idiocracy), specifically [this scene](http://www.youtube.com/watch?v=OpFUrjq8nWE).)
 
 I'm currently working on an Arduino project that uses a knock sensor and the [Music Shield](https://github.com/michael-buschbeck/arduino/tree/master/Music) to interact with its user.
 
@@ -22,21 +28,23 @@ There are quite a handful of those files on the SD card, organized in a director
 
 The full path names are concatenated at runtime because the [SD](http://arduino.cc/en/Reference/SD) library wants full path names.
 The `F()` macro uses macro named `PSTR()` that places its string argument in flash memory -- SRAM is precious, and there's no point in keeping constant strings there.
+
 I've even split the full path names into tokens to take advantage of the fact that the C++ compiler is clever enough to
 save only a *single* actual copy of each distinct string literal in the executable image, even if it appears several times in code.
 
-...or so I thought. Imagine my surprise when I had a casual look into the compiled code and found this:
+...or so I thought. Imagine my surprise when I looked into the compiled ELF file and found this mess:
 
 ![ELF hexdump showing string duplication](/assets/2013-10-20-string-merging-pstr/hexdump-duplication.png)
 
-Seriously? The same strings repeated over and over and over again? In *my* precious flash memory?
+Seriously? The *same* strings repeated over and over and over again? In *my* precious flash memory?
 What am I feeding this compiler all those wholesome, tasty cycles for?!
 
 At this point, someone feeling a lesser amount of righteous indignation than I might've just shrugged their shoulders
-and started compiling -- possibly by hand -- a global table of string constants or somesuch. But not I.
-This compiler was just being *lazy*, and I can't *stand* things or people being lazy at my expense.
+and started compiling -- possibly by hand -- a global table of string constants or somesuch.
 
-Here is a refreshed on how the `PSTR()` macro (which is used by the `F()` macro) is defined:
+But not I. This compiler was just being *lazy*, and I can't *stand* things or people being lazy at my expense.
+
+Here is a refresher on how the `PSTR()` macro (which is used by the `F()` macro) is defined:
 
     #define PSTR(s) (__extension__({static const char __c[] PROGMEM = (s); &__c[0];}))
 
@@ -50,8 +58,8 @@ In a *method* (a member function of a C++ class), a static local -- like that `_
 The compiler makes it a *weak symbol*, presumably because the linker may be faced with several instances of it stemming from multiple translation units,
 and the linker doesn't seem to like doing string merging on weak symbols even if they point to read-only memory.
 
-I must admit that this explanation is conjecture,
-but I tested my idea by experimentally including `-fno-weak` in the `avr-g++` command line, which prevents the compiler from emitting weak symbols.
+That's how I explained it to myself, anyway.
+I tested that idea by experimentally including `-fno-weak` in the `avr-g++` command line, which prevents the compiler from emitting weak symbols.
 (That switch is documented as ["only for testing"](http://gcc.gnu.org/onlinedocs/gcc/C_002b_002b-Dialect-Options.html#C_002b_002b-Dialect-Options) and noted to create "inferior code".)
 When I ran the compiler with it, I got loads and loads of curiously apologetic warnings
 telling me that the switch was making the semantics all wrong and that I'd "wind up with multiple copies" of all my `__c` variables.
