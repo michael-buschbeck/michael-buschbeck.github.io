@@ -165,20 +165,20 @@ That's good news. I'm not a big fan of complicated solutions.
 So that is it. All that's left to do is to make it into a macro:
 
 {% highlight cpp %}
-    #define PSTR(str) \
-      (__extension__({ \
-        PGM_P ptr;  \
-        asm volatile \
-        ( \
-          ".pushsection .progmem.data, \"SM\", @progbits, 1" "\n\t" \
-          "PSTR%=: .string " #str                            "\n\t" \
-          ".popsection"                                      "\n\t" \
-          "ldi %A0, lo8(PSTR%=)"                             "\n\t" \
-          "ldi %B0, hi8(PSTR%=)"                             "\n\t" \
-          : "=d" (ptr) \
-        ); \
-        ptr; \
-      }))
+#define PSTR(str) \
+  (__extension__({ \
+    PGM_P ptr;  \
+    asm volatile \
+    ( \
+      ".pushsection .progmem.data, \"SM\", @progbits, 1" "\n\t" \
+      "PSTR%=: .string " #str                            "\n\t" \
+      ".popsection"                                      "\n\t" \
+      "ldi %A0, lo8(PSTR%=)"                             "\n\t" \
+      "ldi %B0, hi8(PSTR%=)"                             "\n\t" \
+      : "=d" (ptr) \
+    ); \
+    ptr; \
+  }))
 {% endhighlight %}
 
 Edit `pgmspace.h` and replace the existing `PSTR()` macro with that, and you're good to go. (Or just put it somewhere near the top of your own source files.)
