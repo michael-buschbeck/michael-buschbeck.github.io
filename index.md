@@ -1,9 +1,7 @@
 ---
 layout: page
-title: Program all the things!
+title: Hi!
 ---
-
-## Hi!
 
 My name is **Michael Buschbeck**.
 I'm a software developer currently living and working in [Frankfurt](http://en.wikipedia.org/wiki/Frankfurt).
