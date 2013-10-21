@@ -14,17 +14,17 @@ title: Your fla- Your flash is now clean
 I'm currently working on an Arduino project that uses a knock sensor and the [Music Shield](https://github.com/michael-buschbeck/arduino/tree/master/Music) to interact with its user.
 
 The Arduino app prompts the user by playing MP3 audio files.
-There are quite a handful of those files on the SD card, organized in a directory hierarchy, and to play them I've got a lot of lines that go like this:
+There are quite a handful of those files on the SD card, organized in a directory hierarchy, and to play them I've got a lot of lines that go more or less like this:
 
 {% highlight cpp %}
-task<TaskPlayMusic>().play(file(F("ENROLL/"), F("I-CHALL/"), F("PROMPT"), F(".MP3")));
+play(F("ENROLL/"), F("I-CHALL/"), F("PROMPT"), F(".MP3"));
 
-task<TaskPlayMusic>().play(file(F("ENROLL/"), F("I-CHALL/"), F("X-NM1"), F(".MP3")));
+play(F("ENROLL/"), F("I-CHALL/"), F("X-NM1"), F(".MP3"));
 
 switch (escalation) {
-  case 1:  task<TaskPlayMusic>().play(file(F("ENROLL/"), F("I-CONF/"), F("X-NM1"), F(".MP3")));
-  case 2:  task<TaskPlayMusic>().play(file(F("ENROLL/"), F("I-CONF/"), F("X-NM2"), F(".MP3")));
-  default: task<TaskPlayMusic>().play(file(F("ENROLL/"), F("I-CONF/"), F("X-NM3"), F(".MP3")));
+  case 1:  play(F("ENROLL/"), F("I-CONF/"), F("X-NM1"), F(".MP3"));
+  case 2:  play(F("ENROLL/"), F("I-CONF/"), F("X-NM2"), F(".MP3"));
+  default: play(F("ENROLL/"), F("I-CONF/"), F("X-NM3"), F(".MP3"));
 }
 {% endhighlight %}
 
