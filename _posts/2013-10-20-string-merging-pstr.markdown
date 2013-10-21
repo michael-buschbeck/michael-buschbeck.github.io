@@ -17,15 +17,15 @@ The Arduino app prompts the user by playing MP3 audio files.
 There are quite a handful of those files on the SD card, organized in a directory hierarchy, and to play them I've got a lot of lines that go like this:
 
 {% highlight cpp %}
-    task<TaskPlayMusic>().play(file(F("ENROLL/"), F("I-CHALL/"), F("PROMPT"), F(".MP3")));
+task<TaskPlayMusic>().play(file(F("ENROLL/"), F("I-CHALL/"), F("PROMPT"), F(".MP3")));
 
-    task<TaskPlayMusic>().play(file(F("ENROLL/"), F("I-CHALL/"), F("X-NM1"), F(".MP3")));
+task<TaskPlayMusic>().play(file(F("ENROLL/"), F("I-CHALL/"), F("X-NM1"), F(".MP3")));
 
-    switch (escalation) {
-      case 1:  task<TaskPlayMusic>().play(file(F("ENROLL/"), F("I-CONF/"), F("X-NM1"), F(".MP3")));
-      case 2:  task<TaskPlayMusic>().play(file(F("ENROLL/"), F("I-CONF/"), F("X-NM2"), F(".MP3")));
-      default: task<TaskPlayMusic>().play(file(F("ENROLL/"), F("I-CONF/"), F("X-NM3"), F(".MP3")));
-    }
+switch (escalation) {
+  case 1:  task<TaskPlayMusic>().play(file(F("ENROLL/"), F("I-CONF/"), F("X-NM1"), F(".MP3")));
+  case 2:  task<TaskPlayMusic>().play(file(F("ENROLL/"), F("I-CONF/"), F("X-NM2"), F(".MP3")));
+  default: task<TaskPlayMusic>().play(file(F("ENROLL/"), F("I-CONF/"), F("X-NM3"), F(".MP3")));
+}
 {% endhighlight %}
 
 The full path names are concatenated at runtime because the [SD](http://arduino.cc/en/Reference/SD) library wants full path names.
@@ -49,7 +49,7 @@ But not I. This compiler was just being *lazy*, and I can't *stand* things or pe
 Here is how the `PSTR()` macro (which is used by the `F()` macro) is defined:
 
 {% highlight cpp %}
-    #define PSTR(s) (__extension__({static const char __c[] PROGMEM = (s); &__c[0];}))
+#define PSTR(s) (__extension__({static const char __c[] PROGMEM = (s); &__c[0];}))
 {% endhighlight %}
 
 The `PROGMEM` attribute ensures that its subject is placed in flash memory, but it can't be applied to a string literal --
@@ -84,12 +84,12 @@ All documentation examples and tutorials I've seen just do opcodes and the occas
 Let's just give it a try:
 
 {% highlight cpp %}
-    asm volatile
-    (
-      ".pushsection .progmem.data, \"SM\", @progbits, 1" "\n\t"
-      ".string \"MOO MOO MOO\""                          "\n\t"
-      ".popsection"                                      "\n\t"
-    );
+asm volatile
+(
+  ".pushsection .progmem.data, \"SM\", @progbits, 1" "\n\t"
+  ".string \"MOO MOO MOO\""                          "\n\t"
+  ".popsection"                                      "\n\t"
+);
 {% endhighlight %}
 
 The first line switches to a section called `.progmem.data` that contains C strings (indicated by the `"S"` flag) that should be merged if possible (the `"M"` flag).
@@ -103,17 +103,17 @@ I need to get the address of that string constant.
 Since it's just a proof of concept at this stage, I don't mind if it's ugly if it gets the job done; avert your eyes if you're squeamish.
 
 {% highlight cpp %}
-    asm volatile
-    (
-      ".pushsection .progmem.data, \"SM\", @progbits, 1" "\n\t"
-    );
-    MOO_STRING:
-    asm volatile
-    (
-      ".string \"MOO MOO MOO\""                          "\n\t"
-      ".popsection"                                      "\n\t"
-    );
-    PGM_P ptr = reinterpret_cast<PGM_P>(&&MOO_STRING);
+asm volatile
+(
+  ".pushsection .progmem.data, \"SM\", @progbits, 1" "\n\t"
+);
+MOO_STRING:
+asm volatile
+(
+  ".string \"MOO MOO MOO\""                          "\n\t"
+  ".popsection"                                      "\n\t"
+);
+PGM_P ptr = reinterpret_cast<PGM_P>(&&MOO_STRING);
 {% endhighlight %}
 
 (You can re-open your eyes now.)
@@ -144,16 +144,16 @@ So, if I had put the `MOO_STRING` label into assembler code, I'd just have to sa
 Let's try to put that into context:
 
 {% highlight cpp %}
-    PGM_P ptr;
-    asm volatile
-    (
-      ".pushsection .progmem.data, \"SM\", @progbits, 1" "\n\t"
-      "MOO_STRING: .string \"MOO MOO MOO\""              "\n\t"
-      ".popsection"                                      "\n\t"
-      "ldi %A0, lo8(MOO_STRING)"                         "\n\t"
-      "ldi %B0, hi8(MOO_STRING)"                         "\n\t"
-      : "=d" (ptr)
-    );
+PGM_P ptr;
+asm volatile
+(
+  ".pushsection .progmem.data, \"SM\", @progbits, 1" "\n\t"
+  "MOO_STRING: .string \"MOO MOO MOO\""              "\n\t"
+  ".popsection"                                      "\n\t"
+  "ldi %A0, lo8(MOO_STRING)"                         "\n\t"
+  "ldi %B0, hi8(MOO_STRING)"                         "\n\t"
+  : "=d" (ptr)
+);
 {% endhighlight %}
 
 Compile, link, disassemble, check, upload, run. **It works!**
