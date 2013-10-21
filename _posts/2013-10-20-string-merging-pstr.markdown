@@ -9,7 +9,7 @@ title: Your fla- Your flash is now clean
 > The `PSTR()` macro wastes flash memory because it doesn't support de-duplication of identical string literals (string merging).
 > At the very bottom of this page you'll find a drop-in replacement of the `PSTR()` macro that doesn't have this limitation.
 
-(The title is a reference to [this excellent movie](http://en.wikiquote.org/wiki/Idiocracy), specifically [this scene](http://www.youtube.com/watch?v=OpFUrjq8nWE).)
+(The title is a reference to [this excellent movie](http://en.wikipedia.org/wiki/Idiocracy), specifically [this scene](http://www.youtube.com/watch?v=OpFUrjq8nWE).)
 
 I'm currently working on an Arduino project that uses a knock sensor and the [Music Shield](https://github.com/michael-buschbeck/arduino/tree/master/Music) to interact with its user.
 
