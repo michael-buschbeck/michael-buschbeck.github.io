@@ -75,9 +75,9 @@ The *compiler* doesn't do string merging. The *linker* does. The compiler just s
 
 So I needed some other language construct. A simpler one. One that allows me to state what I want as bluntly as possible. Hmm.
 Can you actually use assembler *directives* in inline assembler?
-All documentation examples and tutorials I've seen just do opcodes and the occasional label -- granted, that's probably the prevalent scenario.
+All documentation examples and tutorials I've seen just do opcodes and the occasional label.
 
-Let's give it a try:
+Let's just give it a try:
 
     asm volatile
     (
@@ -92,10 +92,9 @@ and the `1` after that declares that each character of those mergeable strings i
 The `.string` directive then adds a null-terminated C string to that section,
 and `.popsection` switches back to whatever section we were in prior to `.pushsection`.
 
-It compiles. That's a promising start, but not very useful yet. I probably now have "MOO MOO MOO" somewhere in flash memory, but I have no idea where.
-So I need to get the address of that string constant.
-It's just a proof of concept at this stage, so I don't mind if it's ugly if it gets the job done.
-(Avert your eyes if you're squeamish.)
+It compiles. That's a promising start, but not very useful yet. I have "MOO MOO MOO" somewhere in flash memory now, but I have no idea where.
+I need to get the address of that string constant.
+Since it's just a proof of concept at this stage, I don't mind if it's ugly if it gets the job done; avert your eyes if you're squeamish.
 
     asm volatile
     (
@@ -109,11 +108,11 @@ It's just a proof of concept at this stage, so I don't mind if it's ugly if it g
     );
     PGM_P ptr = reinterpret_cast<PGM_P>(&&MOO_STRING);
 
-(You may re-open your eyes now.)
+(You can re-open your eyes now.)
 
 I've put a C++ label in the middle of my assembler code and taken its address.
-When run,I can see that `ptr` contains a smallish non-zero value now, which is encouraging.
-However, looking at the actual flash image, it's only *half* of what it should be.
+When run, I can see that `ptr` contains a smallish non-zero value now, which is encouraging.
+But when I cross-check it against the string offset in the actual flash image, I find that `ptr` is only *half* of what it should be.
 
 Why?
 
