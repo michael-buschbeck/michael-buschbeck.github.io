@@ -29,7 +29,7 @@ switch (escalation) {
 {% endhighlight %}
 
 The paths are concatenated at runtime within `play()` because the [SD](http://arduino.cc/en/Reference/SD) library wants full path names.
-The `F()` macro uses macro named `PSTR()` that places its string argument in flash memory -- SRAM is precious, and there's no point in keeping constant strings there.
+The `F()` macro uses a macro named `PSTR()` that places its string argument in flash memory -- SRAM is precious, and there's no point in keeping constant strings there.
 
 I've even split the full path names into tokens to take advantage of the fact that the C++ compiler is clever enough to
 save only a *single* actual copy of each distinct string literal in the executable image, even if it appears several times in code.
