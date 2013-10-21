@@ -16,6 +16,7 @@ I'm currently working on an Arduino project that uses a knock sensor and the [Mu
 The Arduino app prompts the user by playing MP3 audio files.
 There are quite a handful of those files on the SD card, organized in a directory hierarchy, and to play them I've got a lot of lines that go like this:
 
+{% highlight cpp %}
     task<TaskPlayMusic>().play(file(F("ENROLL/"), F("I-CHALL/"), F("PROMPT"), F(".MP3")));
 
     task<TaskPlayMusic>().play(file(F("ENROLL/"), F("I-CHALL/"), F("X-NM1"), F(".MP3")));
@@ -25,6 +26,7 @@ There are quite a handful of those files on the SD card, organized in a director
       case 2:  task<TaskPlayMusic>().play(file(F("ENROLL/"), F("I-CONF/"), F("X-NM2"), F(".MP3")));
       default: task<TaskPlayMusic>().play(file(F("ENROLL/"), F("I-CONF/"), F("X-NM3"), F(".MP3")));
     }
+{% endhighlight %}
 
 The full path names are concatenated at runtime because the [SD](http://arduino.cc/en/Reference/SD) library wants full path names.
 The `F()` macro uses macro named `PSTR()` that places its string argument in flash memory -- SRAM is precious, and there's no point in keeping constant strings there.
@@ -46,7 +48,9 @@ But not I. This compiler was just being *lazy*, and I can't *stand* things or pe
 
 Here is how the `PSTR()` macro (which is used by the `F()` macro) is defined:
 
+{% highlight cpp %}
     #define PSTR(s) (__extension__({static const char __c[] PROGMEM = (s); &__c[0];}))
+{% endhighlight %}
 
 The `PROGMEM` attribute ensures that its subject is placed in flash memory, but it can't be applied to a string literal --
 it must be [attached to a variable](http://gcc.gnu.org/onlinedocs/gcc/Variable-Attributes.html).
@@ -79,12 +83,14 @@ All documentation examples and tutorials I've seen just do opcodes and the occas
 
 Let's just give it a try:
 
+{% highlight cpp %}
     asm volatile
     (
       ".pushsection .progmem.data, \"SM\", @progbits, 1" "\n\t"
       ".string \"MOO MOO MOO\""                          "\n\t"
       ".popsection"                                      "\n\t"
     );
+{% endhighlight %}
 
 The first line switches to a section called `.progmem.data` that contains C strings (indicated by the `"S"` flag) that should be merged if possible (the `"M"` flag).
 The `@progbits` attribute says that it "contains data", which is to say that it should be placed in the executable image,
@@ -96,6 +102,7 @@ It compiles. That's a promising start, but not very useful yet. I have "MOO MOO 
 I need to get the address of that string constant.
 Since it's just a proof of concept at this stage, I don't mind if it's ugly if it gets the job done; avert your eyes if you're squeamish.
 
+{% highlight cpp %}
     asm volatile
     (
       ".pushsection .progmem.data, \"SM\", @progbits, 1" "\n\t"
@@ -107,6 +114,7 @@ Since it's just a proof of concept at this stage, I don't mind if it's ugly if i
       ".popsection"                                      "\n\t"
     );
     PGM_P ptr = reinterpret_cast<PGM_P>(&&MOO_STRING);
+{% endhighlight %}
 
 (You can re-open your eyes now.)
 
@@ -120,7 +128,7 @@ As far as the compiler is concerned, `MOO_STRING` is a code label, and `&&MOO_ST
 My string is at the n-th *byte* for some value of n, so that label points to the n/2-th *code word*, and that is what the compiler is telling me.
 
 Obviously, a bit shift can fix that. And having done that, my test code actually works: `strlen_P()` returns 11 as it should,
-and with some minor `F()`-macro-style syntactic massaging of `ptr`, even `Serial.print()` cooperates and happily moos straight from flash to the serial console.
+and with some minor `F()`-macro-style massaging of `ptr`, even `Serial.print()` cooperates and happily moos straight from flash to the serial console.
 
 I think I'm on to something here!
 
@@ -135,6 +143,7 @@ So, if I had put the `MOO_STRING` label into assembler code, I'd just have to sa
 
 Let's try to put that into context:
 
+{% highlight cpp %}
     PGM_P ptr;
     asm volatile
     (
@@ -145,6 +154,7 @@ Let's try to put that into context:
       "ldi %B0, hi8(MOO_STRING)"                         "\n\t"
       : "=d" (ptr)
     );
+{% endhighlight %}
 
 Compile, link, disassemble, check, upload, run. **It works!**
 And even in duplicate and triplicate, there's only ever one single instance of that `MOO MOO MOO` string to be found in the executable image.
@@ -154,6 +164,7 @@ That's good news. I'm not a big fan of complicated solutions.
 
 So that is it. All that's left to do is to make it into a macro:
 
+{% highlight cpp %}
     #define PSTR(str) \
       (__extension__({ \
         PGM_P ptr;  \
@@ -168,5 +179,6 @@ So that is it. All that's left to do is to make it into a macro:
         ); \
         ptr; \
       }))
+{% endhighlight %}
 
 Edit `pgmspace.h` and replace the existing `PSTR()` macro with that, and you're good to go. (Or just put it somewhere near the top of your own source files.)
