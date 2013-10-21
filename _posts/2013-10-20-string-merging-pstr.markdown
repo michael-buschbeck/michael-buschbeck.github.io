@@ -2,7 +2,7 @@
 layout: post
 category: arduino
 tags: [arduino, avr, c++]
-title: Your fla-- Your flash is now clean
+title: Your fla- Your flash is now clean
 ---
 
 > **tl;dr:**
@@ -44,7 +44,7 @@ and started compiling -- possibly by hand -- a global table of string constants 
 
 But not I. This compiler was just being *lazy*, and I can't *stand* things or people being lazy at my expense.
 
-Here is a refresher on how the `PSTR()` macro (which is used by the `F()` macro) is defined:
+Here is how the `PSTR()` macro (which is used by the `F()` macro) is defined:
 
     #define PSTR(s) (__extension__({static const char __c[] PROGMEM = (s); &__c[0];}))
 
@@ -71,15 +71,13 @@ Well...
 ...now I'd like to just gloss over one or two days of trying to get the *compiler* to de-duplicate strings.
 There were plenty of [red herrings](http://gcc.gnu.org/bugzilla/show_bug.cgi?id=43746#c8) in that direction,
 but at some point it began to dawn on me that I was looking at the wrong suspect.
-
 The *compiler* doesn't do string merging. The *linker* does. The compiler just sets everything up. It made a lot of sense once I had realized that.
 
 So I needed some other language construct. A simpler one. One that allows me to state what I want as bluntly as possible. Hmm.
-
 Can you actually use assembler *directives* in inline assembler?
 All documentation examples and tutorials I've seen just do opcodes and the occasional label -- granted, that's probably the prevalent scenario.
 
-In any case, it turns out you can:
+Let's give it a try:
 
     asm volatile
     (
@@ -92,10 +90,9 @@ The first line switches to a section called `.progmem.data` that contains C stri
 The `@progbits` attribute says that it "contains data", which is to say that it should be placed in the executable image,
 and the `1` after that declares that each character of those mergeable strings is represented by one byte.
 The `.string` directive then adds a null-terminated C string to that section,
-and finally, `.popsection` switches back to whatever section we were in prior to `.pushsection`.
+and `.popsection` switches back to whatever section we were in prior to `.pushsection`.
 
-It compiles. That's a promising start, but not very useful yet. I probably have "MOO MOO MOO" somewhere in flash memory now, but I have no idea where.
-
+It compiles. That's a promising start, but not very useful yet. I probably now have "MOO MOO MOO" somewhere in flash memory, but I have no idea where.
 So I need to get the address of that string constant.
 It's just a proof of concept at this stage, so I don't mind if it's ugly if it gets the job done.
 (Avert your eyes if you're squeamish.)
