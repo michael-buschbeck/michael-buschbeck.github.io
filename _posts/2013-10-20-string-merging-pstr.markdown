@@ -6,7 +6,7 @@ title: Your fla- Your flash is now clean
 ---
 
 > **Update (22 October):**
-> The solution shown at the end of this page has an issue that was pointed out on the [Arduino forums](http://forum.arduino.cc//index.php?topic=194603).
+> The solution shown at the end of this page has an important edge-case issue that was pointed out on the [Arduino forums](http://forum.arduino.cc//index.php?topic=194603).
 > The follow-up post, [There's always an edge case](/arduino/2013/10/22/string-merging-pstr-percent-codes/), has an updated version.
 
 ******
@@ -175,7 +175,7 @@ So that is it. All that's left to do is to make it into a macro:
 ******
 
 > **Update (22 October):**
-> The code shown below has been superseded with an [updated version](/arduino/2013/10/22/string-merging-pstr-percent-codes/) that fixes an important edge case issue.
+> The code shown below has been superseded with an [updated version](/arduino/2013/10/22/string-merging-pstr-percent-codes/) that fixes an important edge-case issue.
 
 ******
 

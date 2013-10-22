@@ -5,8 +5,8 @@ tags: [arduino, avr, c++]
 title: There's always an edge case
 ---
 
-> This post is an update to [Your fla- Your flash is now clean](/arduino/2013/10/20/string-merging-pstr/).
-> An updated version of the modified `PSTR()` macro is at the bottom of this page.
+> This post is a follow-up to [Your fla- Your flash is now clean](/arduino/2013/10/20/string-merging-pstr/).
+> An updated, improved version of the modified `PSTR()` macro is at the bottom of this page.
 
 ******
 
@@ -44,8 +44,8 @@ asm volatile
 );
 {% endhighlight %}
 
-Can you see it? The `%"` next to the `.string` directive looks a lot like those `%A0` and `%B0` and `%=` placeholders, except it doesn't.
-It's a good thing Darryl didn't use a string like "&pound;2&middot;50%=&pound;1", or he'd have ended up with gibberish instead of a proper compiler error.
+Can you see it? The `%\"` next to the `.string` directive looks a lot like those `%A0` and `%B0` and `%=` placeholders, except it doesn't.
+It's a good thing Darryl didn't use a string like "&pound;2&times;50%=&pound;1", or he'd have ended up with gibberish instead of a proper compiler error.
 
 The good news is that GCC's `asm` directive only attempts to interpret "%-codes" if any outputs are declared.
 
