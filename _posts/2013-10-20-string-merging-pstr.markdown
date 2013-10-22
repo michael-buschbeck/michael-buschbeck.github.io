@@ -9,7 +9,7 @@ title: Your fla- Your flash is now clean
 > The solution proposed here has some issues that were pointed out in a very constructive [Arduino forum discussion](http://forum.arduino.cc//index.php?topic=194603) on this topic.
 > For the time being, please have a look there for the most recent version. I'll post a summary of the results once they've settled.
 
-***
+******
 
 > **tl;dr:**
 > The `PSTR()` macro wastes flash memory because it doesn't support de-duplication of identical string literals (string merging).
