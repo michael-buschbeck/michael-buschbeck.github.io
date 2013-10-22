@@ -53,8 +53,8 @@ Of course, I *do* need outputs to get the string address out.
 But I can split the `asm` statement into two consecutive ones, the first one defining the string, the second one getting its address.
 
 There's a problem with that, too, though, because now I can't use the `%=` construct to generate a unique label for the string.
-(And `%=` would resolve to different values in those two asm blocks anyway.)
-But fortunately, the assembler has a concept of [local labels](http://tigcc.ticalc.org/doc/gnuasm.html#SEC48L) that seem to work even in my case.
+(And `%=` would resolve to different values in those two `asm` blocks anyway.)
+But fortunately, the assembler has a concept of [local labels](http://tigcc.ticalc.org/doc/gnuasm.html#SEC48L) that seems to work even in my case.
 
 Long story short, here's an updated version that works even in the `F("%")` case:
 
