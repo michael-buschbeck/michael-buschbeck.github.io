@@ -6,14 +6,16 @@ title: Your fla- Your flash is now clean
 ---
 
 > **Update (22 October):**
-> The solution proposed here has some issues that were pointed out in a very constructive [Arduino forum discussion](http://forum.arduino.cc//index.php?topic=194603) on this topic.
-> For the time being, please have a look there for the most recent version. I'll post a summary of the results once they've settled.
+> The solution shown at the end of this page has an issue that was pointed out on the [Arduino forums](http://forum.arduino.cc//index.php?topic=194603).
+> The follow-up post, [There's always an edge case](/arduino/2013/10/22/string-merging-pstr-percent-codes/), has an updated version.
 
 ******
 
 > **tl;dr:**
 > The `PSTR()` macro wastes flash memory because it doesn't support de-duplication of identical string literals (string merging).
 > At the very bottom of this page you'll find a drop-in replacement of the `PSTR()` macro that doesn't have this limitation.
+
+******
 
 (The title is a reference to [this excellent movie](http://en.wikipedia.org/wiki/Idiocracy), specifically [this scene](http://www.youtube.com/watch?v=OpFUrjq8nWE).)
 
@@ -170,9 +172,12 @@ That's good news. I'm not a big fan of complicated solutions.
 
 So that is it. All that's left to do is to make it into a macro:
 
+******
+
 > **Update (22 October):**
-> The code shown below has been superseded with an updated version that fixes some edge case issues.
-> The most recent version can be found in this [Arduino forum posting](http://forum.arduino.cc//index.php?topic=194603.msg1437866#msg1437866).
+> The code shown below has been superseded with an [updated version](/arduino/2013/10/22/string-merging-pstr-percent-codes/) that fixes an important edge case issue.
+
+******
 
 {% highlight cpp %}
 #define PSTR(str) \
