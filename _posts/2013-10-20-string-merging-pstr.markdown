@@ -5,9 +5,11 @@ tags: [arduino, avr, c++]
 title: Your fla- Your flash is now clean
 ---
 
-**Update (22 October):**
-The solution proposed here has some issues that were pointed out in a (very constructive) [Arduino forum discussion](http://forum.arduino.cc//index.php?topic=194603) on this topic.
-For the time being, please have a look there for the most recent version. I'll post a summary of the results once they've settled.
+> **Update (22 October):**
+> The solution proposed here has some issues that were pointed out in a (very constructive) [Arduino forum discussion](http://forum.arduino.cc//index.php?topic=194603) on this topic.
+> For the time being, please have a look there for the most recent version. I'll post a summary of the results once they've settled.
+
+***
 
 > **tl;dr:**
 > The `PSTR()` macro wastes flash memory because it doesn't support de-duplication of identical string literals (string merging).
@@ -168,9 +170,9 @@ That's good news. I'm not a big fan of complicated solutions.
 
 So that is it. All that's left to do is to make it into a macro:
 
-**Update (22 October):**
-The code shown below has been superseded with an updated version that fixes some edge case issues.
-The most recent version can be found in this [Arduino forum posting](http://forum.arduino.cc//index.php?topic=194603.msg1437866#msg1437866).
+> **Update (22 October):**
+> The code shown below has been superseded with an updated version that fixes some edge case issues.
+> The most recent version can be found in this [Arduino forum posting](http://forum.arduino.cc//index.php?topic=194603.msg1437866#msg1437866).
 
 {% highlight cpp %}
 #define PSTR(str) \
