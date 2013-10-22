@@ -90,5 +90,5 @@ Serial.print(F("%%%"));
 {% endhighlight %}
 
 and it turns out the linker actually cleverly merges those three strings *into each other*.
-In the ELF file, only "%%%" remains, and "%" and "%%" end up pointing *into* that string at the appropriate offset.
+In the resulting ELF file, only "%%%" remains, and "%" and "%%" end up pointing *into* that string at the appropriate offset.
 Nice!
