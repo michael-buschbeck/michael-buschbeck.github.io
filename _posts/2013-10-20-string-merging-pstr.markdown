@@ -6,7 +6,7 @@ title: Your fla- Your flash is now clean
 ---
 
 > **Update (22 October):**
-> The solution proposed here has some issues that were pointed out in a (very constructive) [Arduino forum discussion](http://forum.arduino.cc//index.php?topic=194603) on this topic.
+> The solution proposed here has some issues that were pointed out in a very constructive [Arduino forum discussion](http://forum.arduino.cc//index.php?topic=194603) on this topic.
 > For the time being, please have a look there for the most recent version. I'll post a summary of the results once they've settled.
 
 ***
