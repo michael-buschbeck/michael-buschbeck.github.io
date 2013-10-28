@@ -10,14 +10,19 @@ title: Prelude to a bus
 
 ******
 
-My current Arduino project involves a knock detector, a 10-position binary code switch, a whole bunch of mechanical sensors and actors, and audio output.
+My current Arduino project involves quite a few peripherals:
+
+* a knock detector,
+* a 10-position binary code switch,
+* a whole bunch of mechanical sensors and actors,
+* and, last but not least, [audio output](https://github.com/michael-buschbeck/arduino/tree/master/Music).
 
 Arduino has plenty of GPIO ports, but not *that* many.
-What's more, in my setup, some of those peripherals may be located up to an arm's length away from the central control unit (the Arduino),
-and I'd rather not string dozens of individual signal cables across my entire installation if I can help it.
+
+What's more: In my setup, some of those peripherals may be located up to an arm's length away from the central control unit (the Arduino).
+I'd rather not string dozens of individual signal cables across my entire installation if I can help it.
 
 So, clearly, some sort of data bus is required.
-Just a single ribbon cable for all peripherals to attach to.
 
 I've read plenty about the disadvantages of using [I&sup2;C](http://en.wikipedia.org/wiki/I2C) for long-distance communications &ndash;
 notably that it was never intended, let alone designed, for that kind of use.
@@ -94,7 +99,7 @@ Let's brainstorm. What are my options?
 
     * **Pros:** No external components, and can use the analog comparator's ANA\_COMP interrupt.
 
-    * **Cons:** Need to bit-bang I&sup2;C because both AIN0 and SDA are mapped to PB0, so I can't use USI.
+    * **Cons:** Need to bit-bang I&sup2;C because AIN0 and SDA are both mapped to PB0, so I can't use USI.
 
 3. Directly attach the piezo to PB1, PB3 or PB4, still exploiting the internal clamping diodes.
    Use the internal ADC to read analog voltages. Implement the threshold in software.
