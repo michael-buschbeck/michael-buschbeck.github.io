@@ -10,26 +10,32 @@ title: Prelude to a bus
 
 ******
 
-My current Arduino project involves quite a few peripherals:
+My current Arduino project needs quite a few peripherals:
 
 * a knock detector,
 * a 10-position binary code switch,
 * a whole bunch of mechanical sensors and actors,
 * and, last but not least, [audio output](https://github.com/michael-buschbeck/arduino/tree/master/Music).
 
-Arduino has plenty of GPIO ports, but not *that* many.
+Though my Arduino Uno has plenty of GPIO ports, it doesn't have *that* many.
+(And of those that are available, Seeedstudio's [Music Shield](http://www.seeedstudio.com/wiki/Music_Shield_V2.0) already needs
+*eight* to talk to the SD card and the [VS1053b](http://www.vlsi.fi/en/products/vs1053.html) music chip,
+plus one for a green indicator LED,
+not to mention the *six* attached to the multifunction button that can fortunately be ignored if not needed.)
 
-What's more: In my setup, some of those peripherals may be located up to an arm's length away from the central control unit (the Arduino).
-I'd rather not string dozens of individual signal cables across my entire installation if I can help it.
+Also, in my project's setup, some of those peripherals may be located up to an arm's length away from the Arduino (my central control unit).
+Even if I could [conjure up more GPIO ports](http://playground.arduino.cc/Code/I2CPortExpander8574) on my Arduino board,
+I'd rather avoid stringing dozens of individual signal cables across my entire installation.
 
-So, clearly, some sort of data bus is required.
+So, clearly, what I want is some sort of data bus.
 
 I've read plenty about the disadvantages of using [I&sup2;C](http://en.wikipedia.org/wiki/I2C) for long-distance communications &ndash;
 notably that it was never intended, let alone designed, for that kind of use.
-But the real world doesn't care and has developed ways to work around those limitations,
-including dedicated [I&sup2;C bus extender](http://www.ti.com/product/p82b715) ICs that promise to expand the effective range of an I&sup2;C network to *hundreds* of meters.
+All it was designed for is inter-IC communication over traces on a PCB, not meters of dangling cable.
 
-I don't need even near that much. I also don't require any bandwidth to speak of. I think I'll be fine.
+But I don't need even near that much. I also don't require any bandwidth to speak of.
+
+I&sup2;C seems just so very convenient. I can't resist giving it a try.
 
 The [ATmega328](http://www.atmel.com/devices/atmega328.aspx) microprocessor installed on the Arduino board has built-in I&sup2;C hardware support
 and there's Arduino's standard [Wire](http://arduino.cc/en/reference/Wire) library that promises to make it easy to use an Arduino as an I&sup2;C master, slave,
