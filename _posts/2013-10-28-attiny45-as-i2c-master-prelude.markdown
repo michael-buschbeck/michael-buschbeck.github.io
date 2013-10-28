@@ -6,24 +6,23 @@ title: Prelude to a bus
 ---
 
 > Wherein I set out to attach all peripherals of my Arduino project to a single I&sup2;C bus
-> and in that process discover that I need to put some ATtiny45 brains into my knock detector.
+> and, in that process, discover that I need to put some ATtiny45 brains into my knock detector.
 
 ******
 
 My current Arduino project needs quite a few peripherals:
 
 * a knock detector,
+* a whole bunch of electromechanical sensors (switches) and actors (magnets),
 * a 10-position binary code switch,
-* a whole bunch of mechanical sensors and actors,
-* and, last but not least, [audio output](https://github.com/michael-buschbeck/arduino/tree/master/Music).
+* and an [audio output](https://github.com/michael-buschbeck/arduino/tree/master/Music) shield.
 
-Though my Arduino Uno has plenty of GPIO ports, it doesn't have *that* many.
-(And of those that are available, Seeedstudio's [Music Shield](http://www.seeedstudio.com/wiki/Music_Shield_V2.0) already needs
-*eight* to talk to the SD card and the [VS1053b](http://www.vlsi.fi/en/products/vs1053.html) music chip,
-plus one for a green indicator LED,
-not to mention the *six* attached to the multifunction button that can fortunately be ignored if not needed.)
+The latter is important here because it occupies a whole **nine** out of Arduino Uno's 20 general-purpose input/output (GPIO) pins,
+including four of the six available "analog in" pins.
+(And six more digital inputs for its "multifunction button", but that only matters if you intend to actually use it.)
+There still remain a few pins for other uses, but certainly not enough for all those components listed above.
 
-Also, in my project's setup, some of those peripherals may be located up to an arm's length away from the Arduino (my central control unit).
+In addition, in my project's setup, most peripherals are located an arm's length away from the Arduino.
 Even if I could [conjure up more GPIO ports](http://playground.arduino.cc/Code/I2CPortExpander8574) on my Arduino board,
 I'd rather avoid stringing dozens of individual signal cables across my entire installation.
 
@@ -33,21 +32,20 @@ I've read plenty about the disadvantages of using [I&sup2;C](http://en.wikipedia
 notably that it was never intended, let alone designed, for that kind of use.
 All it was designed for is inter-IC communication over traces on a PCB, not meters of dangling cable.
 
-But I don't need even near that much. I also don't require any bandwidth to speak of.
+But I don't need anywhere near that much. I also don't require any bandwidth to speak of.
 
-I&sup2;C seems just so very convenient. I can't resist giving it a try.
+And I&sup2;C seems just *so very convenient*. I can't resist giving it a try.
 
-The [ATmega328](http://www.atmel.com/devices/atmega328.aspx) microprocessor installed on the Arduino board has built-in I&sup2;C hardware support
+The [ATmega328](http://www.atmel.com/devices/atmega328.aspx) microprocessor that's on my Arduino Uno board has built-in I&sup2;C hardware support
 and there's Arduino's standard [Wire](http://arduino.cc/en/reference/Wire) library that promises to make it easy to use an Arduino as an I&sup2;C master, slave,
 or [even both](http://forum.arduino.cc//index.php?topic=13579.msg101244#msg101244)
 (which may require a bit of [tweaking](http://www.robotroom.com/Atmel-AVR-TWI-I2C-Multi-Master-Problem.html), perhaps).
 
-Those mechanical sensors and actors (one set each for a bunch of identical door opening mechanisms) and the binary code switch (to select a door)
-lend themselves to taking a passive role &ndash; the Arduino just wants to *confirm* that a door is properly closed,
-and it'll just *query* the state of the code switch at some point.
+Those mechanical sensors and actors and the binary code switch lend themselves to taking a passive role &ndash;
+the Arduino just needs to *confirm* that a switch is actuated, and it just wants *query* the state of the code switch at some point.
 So I've bought a handful of [I&sup2;C port expanders](http://www.nxp.com/pip/PCF8574P.html) that effectively work like remote-controllable tri-state I/O ports.
 
-That leaves me with the knock detector.
+That leaves... the knock detector.
 
 The core of the knock detector is a [piezoelectric sensor](http://en.wikipedia.org/wiki/Piezoelectric_sensor) &ndash;
 a piece of material that generates voltage (but not much current) when pressed or bent.
@@ -68,9 +66,9 @@ is just so resoundingly brutish and ugly that I'll leave it to someone who actua
 So. What's the plan, then?
 
 The knock detector needs to **locally monitor** the piezo voltage;
-**actively push** information about knock events to the central Arduino unit;
+**actively push** information about knock events to the Arduino;
 and possibly even send **locally-gathered timing** information along,
-which also enables it to **locally buffer** knock events just in case it can't get detected events to the central unit as fast as they occur.
+which also makes it possible for it to **locally buffer** detected knock events just in case it can't get detected events to the Arduino as fast as they occur.
 
 Unless somebody unearthes some ready-made knock detection IC somewhere, this calls for a dedicated microprocessor.
 (Finally a reason to get my hands dirty with an AVR [without the training wheels](http://forum.arduino.cc//index.php?topic=111309.msg837103#msg837103).
@@ -94,7 +92,7 @@ Huh. That's what you get when you have so very few pins: massive, massive overlo
 Let's brainstorm. What are my options?
 
 1. Use two diodes and an analog comparator (see above) to externally digitize the piezo's output. Feed that into PB1, PB3 or PB4.
-   Use SDA and SCL (alias PB0 and PB2) for I&sup2;C communications, taking advantage of the USI hardware, which talks through these ports.
+   Use SDA and SCL (alias PB0 and PB2) for I&sup2;C communications, taking advantage of the USI hardware, which talks through these pins.
 
     * **Pros:** Can use USI and the PCINT0 interrupt.
 
