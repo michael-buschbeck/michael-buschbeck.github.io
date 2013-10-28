@@ -5,8 +5,8 @@ tags: [arduino, attiny, avr]
 title: Prelude to a bus
 ---
 
-> Wherein I set out to attach all peripherals of my Arduino project to a single I&sup2;C bus
-> and, in that process, discover that I need to put some ATtiny45 brains into my knock detector.
+> I want to attach all my Arduino peripherals to a single I&sup2;C bus,
+> and it turns out that one of my sensors needs to get its own ATtiny45 brain to make that work.
 
 ******
 
@@ -17,7 +17,7 @@ My current Arduino project needs quite a few peripherals:
 * a 10-position binary code switch,
 * and an [audio output](https://github.com/michael-buschbeck/arduino/tree/master/Music) shield.
 
-The latter is important here because it occupies a whole **nine** out of Arduino Uno's 20 general-purpose input/output (GPIO) pins,
+The latter is important here because it occupies a whole **nine** out of Arduino Uno's twenty general-purpose input/output (GPIO) pins,
 including four of the six available "analog in" pins.
 (And six more digital inputs for its "multifunction button", but that only matters if you intend to actually use it.)
 There still remain a few pins for other uses, but certainly not enough for all those components listed above.
@@ -79,7 +79,7 @@ My brand-new [AVRISP mkII](http://www.atmel.com/tools/AVRISPMKII.aspx) programme
 
 The ATtiny45 is physically small (even if I stick to the DIP form factor &ndash; soldering SMD by hand is still black magic to me),
 and it doesn't make me feel like three quarters of the pins are going to waste. It's *juuust* big enough for this task.
-In addition, the ATtiny25/45/85 models all have built-in hardware support for I&sup2;C by means of their USI (Universal Serial Interface) module.
+In addition, the ATtiny25/45/85 models all have built-in hardware support for I&sup2;C by means of their "Universal Serial Interface" (USI) module.
 
 And also, it's cheap: I've ordered mine for less than an Euro per unit.
 
