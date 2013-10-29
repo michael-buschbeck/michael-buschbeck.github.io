@@ -81,7 +81,7 @@ The ATtiny45 is physically small (even if I stick to the DIP form factor &ndash;
 and it doesn't make me feel like three quarters of the pins are going to waste. It's *juuust* big enough for this task.
 In addition, the ATtiny25/45/85 models all have built-in hardware support for I&sup2;C by means of their "Universal Serial Interface" (USI) module.
 
-And also, it's cheap: I've ordered mine for less than an Euro per unit.
+And it's cheap: I've ordered mine for less than an Euro per unit.
 
 Here's the pinout, straight from the [datasheet](http://www.atmel.com/Images/Atmel-2586-AVR-8-bit-Microcontroller-ATtiny25-ATtiny45-ATtiny85_Datasheet.pdf):
 
@@ -98,8 +98,9 @@ Let's brainstorm. What are my options?
 
 2. Feed the piezo output directly into the *internal* analog comparator behind AIN0 and AIN1 (alias PB0 and PB1), 
    exploiting any AVR's internal [clamping diodes](http://www.atmel.com/images/doc2508.pdf).
+   Talk I&sup2;C through, well, two other pins because AIN0 and SDA are both mapped to PB0, so I can't use USI.
     * **Pros:** No external components, and can use the analog comparator's ANA\_COMP interrupt.
-    * **Cons:** Need to bit-bang I&sup2;C because AIN0 and SDA are both mapped to PB0, so I can't use USI.
+    * **Cons:** Need to bit-bang I&sup2;C.
 
 3. Directly attach the piezo to PB1, PB3 or PB4, still exploiting the internal clamping diodes.
    Use the internal ADC to read analog voltages. Implement the threshold in software.
