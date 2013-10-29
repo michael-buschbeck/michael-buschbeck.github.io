@@ -42,8 +42,9 @@ or [even both](http://forum.arduino.cc//index.php?topic=13579.msg101244#msg10124
 (which may require a bit of [tweaking](http://www.robotroom.com/Atmel-AVR-TWI-I2C-Multi-Master-Problem.html), perhaps).
 
 Those mechanical sensors and actors and the binary code switch lend themselves to taking a passive role &ndash;
-the Arduino just needs to *confirm* that a switch is actuated, and it just wants *query* the state of the code switch at some point.
+it's the *Arduino* that wants to actively check a switch, activate a magnet, or query the position of the code switch at some point.
 So I've bought a handful of [I&sup2;C port expanders](http://www.nxp.com/pip/PCF8574P.html) that effectively work like remote-controllable open-drain I/O ports.
+They're pretty simple in what they do, but that also means that they are very easy to use.
 
 That leaves... the knock detector.
 
