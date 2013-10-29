@@ -56,7 +56,7 @@ anything in the range of a few millivolts (have the sensor lie flat on the table
 Its duration is somewhere in the range of milliseconds.
 
 With a few additional components (a pair of diodes, an analog comparator, a trimmer),
-I can make the piezo's analog output into a tunable digital one (HIGH when above a given adjustable threshold, LOW otherwise).
+I can make the piezo's analog output into a tunable digital one (active-low when above a given threshold, high/floating otherwise).
 I could attach that to one of those I&sup2;C port expanders and have the Arduino poll it.
 Those voltage spikes are rather short, so I'd have to poll *really* frequently, or I'll probably miss most.
 
