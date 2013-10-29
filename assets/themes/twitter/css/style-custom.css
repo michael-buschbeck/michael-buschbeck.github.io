@@ -7,3 +7,9 @@ html body h2 {
   margin-top: 26.5px;
   margin-bottom: 9.5px; 
 }
+
+li > p ~ ul,
+li > p ~ ol {
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
