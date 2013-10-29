@@ -57,7 +57,13 @@ Its duration is somewhere in the range of milliseconds.
 
 With a few additional components (a pair of diodes, an analog comparator, a trimmer),
 I can make the piezo's analog output into a tunable digital one (active-low when above a given threshold, high/floating otherwise).
-I could attach that to one of those I&sup2;C port expanders and have the Arduino poll it.
+Like so:
+
+![piezo sensor with two clamping diodes and a trimmer attached to an analog comparator](/assets/2013-10-28-attiny45-as-i2c-master-prelude/tunable-piezo-digitizer.png)
+
+(You can probably tell I'm new to this.)
+
+I could attach the output to one of those I&sup2;C port expanders and have the Arduino poll it.
 Those voltage spikes are rather short, so I'd have to poll *really* frequently, or I'll probably miss most.
 
 And that, well, that just doesn't seem like a very good idea.
