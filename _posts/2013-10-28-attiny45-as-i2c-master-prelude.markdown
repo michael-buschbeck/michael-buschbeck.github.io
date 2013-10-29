@@ -15,9 +15,9 @@ My current Arduino project needs quite a few peripherals:
 * a knock detector,
 * a whole bunch of electromechanical sensors (switches) and actors (magnets),
 * a 10-position binary code switch,
-* and an [audio output](https://github.com/michael-buschbeck/arduino/tree/master/Music) shield.
+* and an [audio shield](https://github.com/michael-buschbeck/arduino/tree/master/Music).
 
-The latter is important here because it occupies a whole **nine** out of Arduino Uno's twenty general-purpose input/output (GPIO) pins,
+The audio shield is important here because it occupies a whole **nine** out of Arduino Uno's twenty general-purpose input/output (GPIO) pins,
 including four of the six available "analog in" pins.
 (And six more digital inputs for its "multifunction button", but that only matters if you intend to actually use it.)
 There still remain a few pins for other uses, but certainly not enough for all those components listed above.
