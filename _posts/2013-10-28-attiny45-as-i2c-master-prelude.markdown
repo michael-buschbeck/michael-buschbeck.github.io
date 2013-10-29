@@ -94,20 +94,20 @@ Let's brainstorm. What are my options?
 
 1. Use two diodes and an analog comparator (see above) to externally digitize the piezo's output. Feed that into PB1, PB3 or PB4.
    Use SDA and SCL (alias PB0 and PB2) for I&sup2;C communications, taking advantage of the USI hardware, which talks through these pins.
-    * **Pros:** Can use USI and the PCINT0 interrupt.
+    * **Pros:** Can use USI for I&sup2;C and the PCINT0 interrupt for knocks.
     * **Cons:** Need an external analog comparator and two clamping diodes.
 
 2. Feed the piezo output directly into the *internal* analog comparator behind AIN0 and AIN1 (alias PB0 and PB1), 
    exploiting an AVR's internal [clamping diodes](http://www.atmel.com/images/doc2508.pdf).
    Talk I&sup2;C through, well, two other pins because AIN0 and SDA are both mapped to PB0, so I can't use USI.
-    * **Pros:** No external components, and can use the analog comparator's ANA\_COMP interrupt.
+    * **Pros:** No external components, and can use the ANA\_COMP interrupt for knocks.
     * **Cons:** Need to bit-bang I&sup2;C.
 
 3. Directly attach the piezo to PB1, PB3 or PB4, still exploiting the internal clamping diodes.
    Use the internal ADC to read analog voltages. Implement the threshold in software.
    Use SDA and SCL for I&sup2;C.
-    * **Pros:** No external components, and can use USI.
-    * **Cons:** No interrupt.
+    * **Pros:** No external components, and can use USI for I&sup2;C.
+    * **Cons:** No interrupt for knocks.
 
 All three cases support the use of an external trimmer to adjust the detection voltage threshold &ndash;
 either attached to the analog comparator's *other* input or, in the latter case, to a second ADC pin.
