@@ -51,7 +51,7 @@ That leaves... the knock detector.
 The core of the knock detector is a [piezoelectric sensor](http://en.wikipedia.org/wiki/Piezoelectric_sensor) &ndash;
 a piece of material that generates voltage (but not much current) when pressed or bent.
 To detect a knock, I have to watch for a voltage spike in the piezo's output.
-The amplitude of that spike is strongly dependent on the amount of pressure excerted on the piezo &ndash;
+The amplitude of that spike is strongly dependent on the amount of pressure exerted on the piezo &ndash;
 anything in the range of a few millivolts (have the sensor lie flat on the table, and knock against the table) and dozens of volts (tap directly on the sensor).
 Its duration is somewhere in the range of milliseconds.
 
