@@ -43,7 +43,7 @@ or [even both](http://forum.arduino.cc//index.php?topic=13579.msg101244#msg10124
 
 Those mechanical sensors and actors and the binary code switch lend themselves to taking a passive role &ndash;
 the Arduino just needs to *confirm* that a switch is actuated, and it just wants *query* the state of the code switch at some point.
-So I've bought a handful of [I&sup2;C port expanders](http://www.nxp.com/pip/PCF8574P.html) that effectively work like remote-controllable tri-state I/O ports.
+So I've bought a handful of [I&sup2;C port expanders](http://www.nxp.com/pip/PCF8574P.html) that effectively work like remote-controllable open-drain I/O ports.
 
 That leaves... the knock detector.
 
