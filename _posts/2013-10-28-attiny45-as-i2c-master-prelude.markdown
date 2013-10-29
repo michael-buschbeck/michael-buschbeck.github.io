@@ -109,8 +109,8 @@ Let's brainstorm. What are my options?
     * **Pros:** No external components, and can use USI for I&sup2;C.
     * **Cons:** No interrupt for knocks.
 
-All three cases support the use of an external trimmer to adjust the detection voltage threshold &ndash;
-either attached to the analog comparator's *other* input or, in the latter case, to a second ADC pin.
+All three cases support the use of an external trimmer to adjust the knock detection voltage threshold &ndash;
+either attached to the analog comparator's other input or, in the third case, to a second ADC pin.
 
 The first two options absolutely *require* a trimmer (or a fixed voltage divider) to supply a reference voltage to the analog comparator, external or internal.
 
@@ -121,4 +121,4 @@ gathering some sensor statistics (like baseline noise and absolute maximum ampli
 Hmm.
 
 I currently tend towards the third option including that fancy training mode thingy, so I guess I'll try that first.
-Let's see how much of that functionality I'll actually be able to squeeze into ATtiny45's 512&nbsp;bytes of RAM and 8&nbsp;KiB of program memory...
+Let's see how much of that functionality I'll actually be able to squeeze into my ATtiny45 when it's here...
