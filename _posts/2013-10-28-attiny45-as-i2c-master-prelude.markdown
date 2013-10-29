@@ -98,7 +98,7 @@ Let's brainstorm. What are my options?
     * **Cons:** Need an external analog comparator and two clamping diodes.
 
 2. Feed the piezo output directly into the *internal* analog comparator behind AIN0 and AIN1 (alias PB0 and PB1), 
-   exploiting any AVR's internal [clamping diodes](http://www.atmel.com/images/doc2508.pdf).
+   exploiting an AVR's internal [clamping diodes](http://www.atmel.com/images/doc2508.pdf).
    Talk I&sup2;C through, well, two other pins because AIN0 and SDA are both mapped to PB0, so I can't use USI.
     * **Pros:** No external components, and can use the analog comparator's ANA\_COMP interrupt.
     * **Cons:** Need to bit-bang I&sup2;C.
