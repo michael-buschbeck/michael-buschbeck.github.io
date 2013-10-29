@@ -32,7 +32,7 @@ I've read plenty about the disadvantages of using [I&sup2;C](http://en.wikipedia
 notably that it was never intended, let alone designed, for that kind of use.
 All it was designed for is inter-IC communication over traces on a PCB, not meters of dangling cable.
 
-But I don't need anywhere near that much. I also don't require any bandwidth to speak of.
+But I don't need anywhere near that much distance. I also don't require any bandwidth to speak of.
 
 And I&sup2;C seems just *so very convenient*. I can't resist giving it a try.
 
