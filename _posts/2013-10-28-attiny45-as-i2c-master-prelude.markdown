@@ -119,5 +119,5 @@ gathering some sensor statistics (like baseline noise and absolute maximum ampli
 
 Hmm.
 
-I currently tend towards option&nbsp;3 and that fancy training mode thingy, so I guess I'll try that first.
+I currently tend towards the third option including that fancy training mode thingy, so I guess I'll try that first.
 Let's see how much of that functionality I'll actually be able to squeeze into ATtiny45's 512&nbsp;bytes of RAM and 8&nbsp;KiB of program memory...
