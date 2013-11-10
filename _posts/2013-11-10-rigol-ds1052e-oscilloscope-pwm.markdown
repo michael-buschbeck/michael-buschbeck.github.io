@@ -115,7 +115,7 @@ Surprisingly, the frequency counter in the upper-right corner doesn't show the s
 as the `Freq` measurement at the bottom of the measurements block.
 And yet, both are reasonably stable.
 
-What does that mean?
+How can that be?
 
 My guess: The measured time values are [aliased](http://en.wikipedia.org/wiki/Aliasing) to a granularity of, say, 20&nbsp;microseconds.
 The actual frequency is accurately displayed by the frequency counter in the upper-right corner.
