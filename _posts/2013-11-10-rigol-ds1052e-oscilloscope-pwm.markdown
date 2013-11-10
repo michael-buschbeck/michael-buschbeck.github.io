@@ -108,10 +108,10 @@ Watch me change the switch from position&nbsp;6 to 9 and then back again:
 
 ![oscilloscope screen showing PWM square wave from 40% to 60% with automatic measurements](/assets/2013-11-10-rigol-ds1052e-oscilloscope-pwm/scope-screen-measure.gif)
 
-Also note the frequency displayed in the upper-right corner:
+Note the frequency displayed in the upper-right corner:
 That's the so-called frequency counter, which can be enabled by pressing the *Utility* button, then the *Counter* soft button.
 
-Surprisingly, at least), the frequency counter in the upper-right corner doesn't show the same value
+Surprisingly, the frequency counter in the upper-right corner doesn't show the same value
 as the `Freq` measurement at the bottom of the measurements block.
 And yet, both are reasonably stable.
 
