@@ -119,8 +119,9 @@ How can that be?
 
 My guess: The measured time values are [aliased](http://en.wikipedia.org/wiki/Aliasing) to a granularity of, say, 20&nbsp;microseconds.
 The actual frequency is accurately displayed by the frequency counter in the upper-right corner.
-But 489.87&nbsp;Hz correspond to a period of 2.041&hellip;&nbsp;ms, so the measured value comes out to be 2.040&nbsp;ms (talk about showing only significant figures!),
-whose inverse, in turn, is exactly 490.2&nbsp;Hz -- the exact value displayed in the measurements box.
+But 489.87&nbsp;Hz correspond to a period of 2.041&nbsp;ms, so the measured value is rounded to the next full 20&nbsp;&mu;s to be 2.040&nbsp;ms
+(talk about showing only significant figures!),
+whose inverse, in turn, is 490.2&nbsp;Hz -- the exact value displayed in the measurements box.
 
 So the displayed measurements are to be taken with a grain of salt -- especially where their displayed precision is concerned.
 Still useful, I guess, and certainly more accurate (and quicker) than doing the same by hand.
