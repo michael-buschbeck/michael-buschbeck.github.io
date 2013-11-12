@@ -121,7 +121,7 @@ How can that be?
 
 My guess: The measured time values are [aliased](http://en.wikipedia.org/wiki/Aliasing) to a granularity of, I think, 20&nbsp;microseconds at this resolution.
 The *actual* frequency is accurately displayed by the frequency counter in the upper-right corner.
-\489.87&nbsp;Hz correspond to a period of 2.04**1**&nbsp;ms, but the *measured* value snaps to the next full 20&nbsp;&mu;s, that is, to 2.04**0**&nbsp;ms
+489\.87&nbsp;Hz correspond to a period of 2.04**1**&nbsp;ms, but the *measured* value snaps to the next full 20&nbsp;&mu;s, that is, to 2.04**0**&nbsp;ms
 (talk about showing only significant figures!),
 whose inverse, in turn, is 490.2&nbsp;Hz -- the exact value displayed in the measurements box.
 
