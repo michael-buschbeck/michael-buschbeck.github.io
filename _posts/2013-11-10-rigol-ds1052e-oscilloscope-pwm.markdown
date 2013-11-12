@@ -86,8 +86,9 @@ and then I'm already in the middle of measuring... well, nothing much yet, reall
 I first have to tweak the time (horizontal), voltage (vertical) and trigger settings to actually get a stable signal.
 
 There's a handy button labeled *AUTO* in the upper-right corner, though.
-Pressing it makes some internal relay click audibly once or twice, and only one or two seconds later, you've got a stable display.
+Pressing it makes some internal relay click audibly once or twice, and only one or two seconds later, I've got a stable display.
 The waveform is initially centered vertically, but pushing the *VERTICAL POSITION* knob resets ground level voltage to the middle of the screen.
+(The yellow `1` arrow to the left indicates ground level.)
 
 So this is what I'm seeing now:
 
@@ -118,14 +119,14 @@ And yet, both are reasonably stable.
 
 How can that be?
 
-My guess: The measured time values are [aliased](http://en.wikipedia.org/wiki/Aliasing) to a granularity of, say, 20&nbsp;microseconds.
-The actual frequency is accurately displayed by the frequency counter in the upper-right corner.
-But 489.87&nbsp;Hz correspond to a period of 2.041&nbsp;ms, so the measured value is rounded to the next full 20&nbsp;&mu;s to be 2.040&nbsp;ms
+My guess: The measured time values are [aliased](http://en.wikipedia.org/wiki/Aliasing) to a granularity of, I think, 20&nbsp;microseconds at this resolution.
+The *actual* frequency is accurately displayed by the frequency counter in the upper-right corner.
+\489.87&nbsp;Hz correspond to a period of 2.04**1**&nbsp;ms, but the *measured* value snaps to the next full 20&nbsp;&mu;s, that is, to 2.04**0**&nbsp;ms
 (talk about showing only significant figures!),
 whose inverse, in turn, is 490.2&nbsp;Hz -- the exact value displayed in the measurements box.
 
 So the displayed measurements are to be taken with a grain of salt -- especially where their displayed precision is concerned.
-Still useful, I guess, and certainly more accurate (and quicker) than doing the same by hand.
+Still useful, though, and certainly more accurate (and quicker) than doing the same by hand.
 
 Something else catches my eye:
 `Vpp`, the voltage "from peak to peak", is consistently greater than the 5&nbsp;volts an Arduino should be able to output.
@@ -135,7 +136,7 @@ What gives?
 
 Let's have a look at the rising edge of the square wave.
 The *AUTO* button shows a menu that provides a convenient shortcut to that, too.
-All I have to do is select it and then tweak the horizontal scale a bit, and this is what I get:
+All I have to do is press the corresponding soft button and then tweak the horizontal scale a bit, and this is what I get:
 
 ![oscilloscope screen showing rising edge of a square wave with overshoot](/assets/2013-11-10-rigol-ds1052e-oscilloscope-pwm/scope-screen-edge-rising.gif)
 
@@ -149,4 +150,4 @@ For good measure (forgive the pun), here's the falling edge, too:
 ![oscilloscope screen showing falling edge of a square wave with undershoot](/assets/2013-11-10-rigol-ds1052e-oscilloscope-pwm/scope-screen-edge-falling.gif)
 
 Next time I'll have a look at how that [piezo sensor](/arduino/2013/10/28/attiny45-as-i2c-master-prelude/) responds to being tapped on,
-and how I can reign it in to play nicely with a comparator IC.
+and how I can reign it in to play nice with a comparator IC.
