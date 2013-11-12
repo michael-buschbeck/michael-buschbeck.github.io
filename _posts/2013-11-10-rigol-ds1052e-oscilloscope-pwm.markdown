@@ -23,7 +23,8 @@ for entry-level hobbyists who want to get their feet wet with that kind of devic
 So I put it on my birthday wishlist, and lo!, my wish was granted. Yay me! :-D
 
 A new cool piece of measuring equipment needs something to measure. And I need to get acquainted with all those knobs and buttons.
-The [User's Guide](http://www.tequipment.net/pdf/Rigol/DS1000E_DS1000D_series_manual.pdf) is a good and worthy read, but nothing can replace fiddling around yourself.
+The [User's Guide](http://www.tequipment.net/pdf/Rigol/DS1000E_DS1000D_series_manual.pdf) is a good and worthy read,
+but nothing can replace just fiddling around with everything by myself to get a feel for it.
 
 So, who's up for being measured? My Arduino, of course.
 
