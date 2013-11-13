@@ -58,7 +58,7 @@ Its duration is somewhere in the range of milliseconds.
 With a few additional components (a pair of diodes, an analog comparator, a trimmer),
 I can make the piezo's analog output into a tunable digital one (active-low when above a given threshold, high/floating otherwise):
 
-![piezo sensor with two clamping diodes and a trimmer attached to an analog comparator](/assets/2013-10-28-attiny45-as-i2c-master-prelude/tunable-piezo-digitizer.png)
+![piezo sensor with two clipping diodes and a trimmer attached to an analog comparator](/assets/2013-10-28-attiny45-as-i2c-master-prelude/tunable-piezo-digitizer.png)
 
 (You can probably tell I'm new to this.)
 
@@ -100,15 +100,15 @@ Let's brainstorm. What are my options?
 1. Use two diodes and an analog comparator (see above) to externally digitize the piezo's output. Feed that into PB1, PB3 or PB4.
    Use SDA and SCL (alias PB0 and PB2) for I&sup2;C communications, taking advantage of the USI hardware, which talks through these pins.
     * **Pros:** Can use USI for I&sup2;C and the PCINT0 interrupt for knocks.
-    * **Cons:** Need an external analog comparator and two clamping diodes.
+    * **Cons:** Need an external analog comparator and two clipping diodes.
 
 2. Feed the piezo output directly into the *internal* analog comparator behind AIN0 and AIN1 (alias PB0 and PB1), 
-   exploiting an AVR's internal [clamping diodes](http://www.atmel.com/images/doc2508.pdf).
+   exploiting an AVR's internal [clipping diodes](http://www.atmel.com/images/doc2508.pdf).
    Talk I&sup2;C through, well, two other pins because AIN0 and SDA are both mapped to PB0, so I can't use USI.
     * **Pros:** No external components, and can use the ANA\_COMP interrupt for knocks.
     * **Cons:** Need to bit-bang I&sup2;C.
 
-3. Directly attach the piezo to PB1, PB3 or PB4, still exploiting the internal clamping diodes.
+3. Directly attach the piezo to PB1, PB3 or PB4, still exploiting the internal clipping diodes.
    Use the internal ADC to read analog voltages. Implement the threshold in software.
    Use SDA and SCL for I&sup2;C.
     * **Pros:** No external components, and can use USI for I&sup2;C.
