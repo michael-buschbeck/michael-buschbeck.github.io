@@ -41,7 +41,7 @@ Like this:
 
 ![breadboard with LED, binary code switch and oscilloscope probes](/assets/2013-11-10-rigol-ds1052e-oscilloscope-pwm/setup-detail-breadboard.jpg)
 
-Note the oscilliscope probe's gray hook tip near the LED's anode and the black alligator clip connected to the ground rail.
+Note the oscilloscope probe's gray hook tip near the LED's anode and the black alligator clip connected to the ground rail.
 
 Here's the Arduino code to go with it:
 
