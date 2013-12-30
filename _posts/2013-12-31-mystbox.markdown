@@ -37,6 +37,11 @@ So I built something like that over the past two weeks. Here it is:
 
 [![YouTube video](/assets/2013-12-31-mystbox/youtube-preview.png)](http://www.youtube.com/watch?v=uZOFK5aAuGQ)
 
+The markings on the rods are in binary.
+Each rod that is correctly placed moves the latch by one step;
+each rod that is part of the correct code, but not at the right place, makes the latch twitch once.
+With a bit of patience, it's possible to logically deduce the correct subset and order of the rods that opens the latch.
+
 Some technical notes:
 
 * The whole thing is **powered** by a 9&nbsp;V battery connected to Arduino's GND and Vin pins.
