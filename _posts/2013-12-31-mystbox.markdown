@@ -39,7 +39,7 @@ So I built something like that over the past two weeks. Here it is:
 
 Some technical notes:
 
-* The whole thing is **powered** by a 9&nbsp;V battery connected to Arduino's GND and V<sub>in</sub> pins.
+* The whole thing is **powered** by a 9&nbsp;V battery connected to Arduino's GND and Vin pins.
   The socket-and-plug thingy shown at [0:19](http://www.youtube.com/watch?v=uZOFK5aAuGQ#t=19) in the video physically connects the GND line between the board and the battery.
   (If I'd had more time, I'd have made a little circuit to cut power from the entire device when inactive,
   but looking back, the idea of first having to "power up" the machine before being able to use it is really very Myst-like.)
@@ -56,7 +56,7 @@ Some technical notes:
 
 * Each **phototransistor** (in the right-hand tubes of the scanner device) is connected through a 5&nbsp;k&Omega; series resistor to Arduino's 5&nbsp;V pin,
   and the voltage at each point between the phototransistor and the resistor is fed into one of Arduino's analog inputs.
-  (This means that "dark" corresponds to a voltage around V<sub>cc</sub>, and "bright" makes it go down to lower voltages.)
+  (This means that "dark" corresponds to a voltage around Vcc, and "bright" makes it go down to lower voltages.)
 
 * The phototransistors turn out to be *incredibly* directional.
   Even under bright environmental lighting conditions, they're only really affected by light coming in from straight ahead.
