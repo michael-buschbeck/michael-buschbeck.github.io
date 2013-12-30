@@ -40,7 +40,7 @@ So I built something like that over the past two weeks. Here it is:
 The markings on the rods are in binary.
 Each rod that is correctly placed moves the latch by one step;
 each rod that is part of the correct code, but not at the right place, makes the latch twitch once.
-With a bit of patience, it's possible to logically deduce the correct subset and order of the rods that opens the latch.
+With a bit of patience, it's possible to logically deduce the correct subset and order of the rods that open the latch.
 
 Some technical notes:
 
