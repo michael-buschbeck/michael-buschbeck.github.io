@@ -35,7 +35,7 @@ The device invariably includes at least one button or lever of sorts, and usuall
 
 So I built something like that over the past two weeks. Here it is:
 
-<iframe width="640" height="360" src="//www.youtube.com/embed/uZOFK5aAuGQ" frameborder="0" allowfullscreen></iframe>
+# embed video
 
 Some technical notes:
 
