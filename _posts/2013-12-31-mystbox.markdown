@@ -74,7 +74,7 @@ Some technical notes:
   The software uses the "brightest" response from the three measurements. (Getting *no* response is not usually a problem.)
 
 * I also know now why digital servos exist.
-  (Those analog servos' movements are only consistent to within approximately 1°, it appears.
+  (Those analog servos' movements are only consistent to within approximately 1&deg;, it appears.
   Even more reason to make several measurements at different angles.)
 
 * The servos' movements, in general, is mediated by an interpolation routine that uses an easing curve designed in Inkscape.
