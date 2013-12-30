@@ -6,7 +6,7 @@ title: "Myst(ery) Box"
 ---
 
 > I've made a mystery box for my girlfriend's birthday present, powered by Arduino, two servos, a handful of phototransistors and a bunch of LEDs.
-> (Source code link near the bottom of this post.)
+> (Source code link near the bottom.)
 
 ******
 
@@ -35,7 +35,7 @@ The device invariably includes at least one button or lever of sorts, and usuall
 
 So I built something like that over the past two weeks. Here it is:
 
-# embed video
+[![YouTube video](/assets/2013-12-31-mystbox/youtube-preview.png)](http://www.youtube.com/watch?v=uZOFK5aAuGQ)
 
 Some technical notes:
 
