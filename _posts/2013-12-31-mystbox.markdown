@@ -42,7 +42,7 @@ So I built something like that over the past two weeks. Here it is:
 The markings on the rods are binary numbers: white is 1, dark is 0, read from top to bottom.
 Each rod that is placed correctly moves the latch by one step;
 each rod that is part of the correct code, but not at the right place, makes the latch twitch once.
-With a bit of patience, it's possible to logically deduce the correct subset and order of the rods that open the latch.
+With a bit of patience, it's possible to logically deduce the correct subset and order of the rods for the latch to open completely.
 
 Some technical notes:
 
