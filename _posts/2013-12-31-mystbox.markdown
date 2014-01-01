@@ -37,6 +37,8 @@ So I built something like that over the past two weeks. Here it is:
 
 [![YouTube video](/assets/2013-12-31-mystbox/youtube-preview.png)](http://www.youtube.com/watch?v=uZOFK5aAuGQ)
 
+(I didn't make the wooden box, of course. Just its innards.)
+
 The markings on the rods are binary numbers: white is 1, dark is 0, read from top to bottom.
 Each rod that is placed correctly moves the latch by one step;
 each rod that is part of the correct code, but not at the right place, makes the latch twitch once.
