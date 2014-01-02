@@ -84,7 +84,7 @@ Some technical notes:
   (Those analog servos' movements are only consistent to within approximately 1&deg;, it appears.
   Even more reason to make several measurements at different angles.)
 
-* The servos' movements, in general, is mediated by an interpolation routine that uses an easing curve designed in Inkscape.
+* The servos' movement, in general, is mediated by an interpolation routine that uses an easing curve designed in Inkscape.
   (The "overswing" movement and the latch's "twitch" movement are just special cases of that.)
   The only time you see a servo move at its native speed in the video is when the device is powered up (at [0:24](http://www.youtube.com/watch?v=uZOFK5aAuGQ#t=24)).
 
