@@ -4,7 +4,7 @@ title: Hi!
 ---
 
 My name is **Michael Buschbeck**.
-I'm a software developer currently living and working in [Frankfurt](http://en.wikipedia.org/wiki/Frankfurt).
+I'm a software developer currently living in [Coventry](http://en.wikipedia.org/wiki/Coventry) and working for a software company in [Frankfurt](http://en.wikipedia.org/wiki/Frankfurt).
 
 ## Posts
 
